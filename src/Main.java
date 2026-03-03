@@ -11,7 +11,7 @@ public class Main {
             if (input.startsWith("/add")) {
                 taskManager.adTask(input.substring(5));
             } else if (input.startsWith("/list")) {
-
+                taskManager.getTask();
             }
         }
     }
