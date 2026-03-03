@@ -8,9 +8,18 @@ public class TaskManager {
     public void adTask(String description) {
         Task task = new Task(nextId, description);
         tasks.add(task);
+        nextId++;
     }
 
-    public void getTask() {
+    public void getAllTask() {
         tasks.forEach(System.out::println);
+    }
+
+    public void markTaskAsDone(int id) {
+        for (Task elem: tasks) {
+            if (elem.getId() == id) {
+                elem.markAsDone();
+            }
+        }
     }
 }
