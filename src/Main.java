@@ -8,43 +8,49 @@ public class Main {
         while (true) {
             System.out.print("Введите команду: ");
             String input = scanner.nextLine();
-            if (input.startsWith("/add")) {
-                taskManager.adTask(input.substring(5));
-                System.out.println("Задача добавлена!");
-            } else if (input.startsWith("/list")) {
-                System.out.println("Список задач:");
-                taskManager.getAllTask();
-            } else if (input.startsWith("/done")) {
-                try {
-                    int id = Integer.parseInt(input.substring(6));
-                    if (id > taskManager.nextId) {
-                        System.out.println("Ошибка: введённый id превышает существующие в списке");
-                    } else if (taskManager.checkDoneTasks(id)) {
-                        System.out.println("Ошибка: эта задача уже помечена как выполненная");
-                    } else {
-                        taskManager.markTaskAsDone(id);
-                        System.out.println("Задача помечена как выполненная!");
+            try {
+                if (input.startsWith("/add")) {
+                    taskManager.adTask(input.substring(5));
+                    System.out.println("Задача добавлена!");
+                } else if (input.startsWith("/list")) {
+                    System.out.println("Список задач:");
+                    taskManager.getAllTask();
+                } else if (input.startsWith("/done")) {
+                    try {
+                        int id = Integer.parseInt(input.substring(6));
+                        if (id > taskManager.nextId) {
+                            System.out.println("Ошибка: введённый id превышает существующие в списке");
+                        } else if (taskManager.checkDoneTasks(id)) {
+                            System.out.println("Ошибка: эта задача уже помечена как выполненная");
+                        } else {
+                            taskManager.markTaskAsDone(id);
+                            System.out.println("Задача помечена как выполненная!");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Ошибка: введите числовое представление id");
                     }
-                } catch (NumberFormatException e) {
-                    System.out.println("Ошибка: введите числовое представление id");
-                }
-            }  else if(input.startsWith("/delete")) {
-                try {
-                    int id = Integer.parseInt(input.substring(8));
-                    if (id > taskManager.nextId){
-                        System.out.println("Ошибка: введённый id превышает существующие в списке");
-                    } else if (taskManager.checkDeletedTasks(id)) {
-                        System.out.println("Ошибка: эта задача уже была удалена");
-                    } else {
-                        taskManager.deleteTask(id);
-                        System.out.println("Задача удалена!");
+                }  else if(input.startsWith("/delete")) {
+                    try {
+                        int id = Integer.parseInt(input.substring(8));
+                        if (id > taskManager.nextId){
+                            System.out.println("Ошибка: введённый id превышает существующие в списке");
+                        } else if (taskManager.checkDeletedTasks(id)) {
+                            System.out.println("Ошибка: эта задача уже была удалена");
+                        } else {
+                            taskManager.deleteTask(id);
+                            System.out.println("Задача удалена!");
+                        }
+                    } catch(NumberFormatException e) {
+                        System.out.println("Ошибка: введите числовое представление id");
                     }
-                } catch(NumberFormatException e) {
-                    System.out.println("Ошибка: введите числовое представление id");
+                } else if (input.startsWith("/exit")) {
+                    System.out.println("Вы вышли из программы");
+                    break;
+                } else {
+                    System.out.println("Ошибка: введена неизвестная команда");
                 }
-            } else if (input.startsWith("/exit")) {
-                System.out.println("Вы вышли из программы");
-                break;
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println("Ошибка: после ввода команды введите описание или id задачи");
             }
         }
     }
