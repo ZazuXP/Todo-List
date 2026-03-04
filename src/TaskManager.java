@@ -1,14 +1,16 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeMap;
 
 public class TaskManager {
     private List<Task> tasks = new ArrayList<>();
-    private int nextId = 1;
+    private ArrayList<Task> deletedTasks = new ArrayList<>();
+    public int nextId = 0;
 
     public void adTask(String description) {
+        nextId++;
         Task task = new Task(nextId, description);
         tasks.add(task);
-        nextId++;
     }
 
     public void getAllTask() {
@@ -26,9 +28,19 @@ public class TaskManager {
     public void deleteTask(int id) {
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).getId() == id){
+                deletedTasks.add(tasks.get(i));
                 tasks.remove(i);
                 return;
             }
         }
+    }
+
+    public boolean checkDeletedTasks(int id) {
+        for (Task elem: deletedTasks) {
+            if (elem.getId() == id) {
+                return true;
+            }
+        }
+        return false;
     }
 }
