@@ -12,6 +12,14 @@ public class Task {
         return id;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public boolean getIsDone() {
+        return isDone;
+    }
+
     public void markAsDone(){
         isDone = true;
     }

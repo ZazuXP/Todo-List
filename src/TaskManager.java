@@ -1,6 +1,6 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeMap;
 
 public class TaskManager {
     private List<Task> tasks = new ArrayList<>();
@@ -53,5 +53,19 @@ public class TaskManager {
             }
         }
         return false;
+    }
+
+    public void saveToFile(String filename) {
+        File file = new File(filename);
+        for (Task elem: tasks) {
+            String task = elem.getId() + ";" + elem.getDescription() + ";" + elem.getIsDone();
+            try {
+                PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+                writer.println(task);
+                writer.close();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }
