@@ -1,4 +1,5 @@
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,16 +57,28 @@ public class TaskManager {
     }
 
     public void saveToFile(String filename) {
-        File file = new File(filename);
         for (Task elem: tasks) {
             String task = elem.getId() + ";" + elem.getDescription() + ";" + elem.getIsDone();
             try {
-                PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+                PrintWriter writer = new PrintWriter(new FileWriter(filename, true));
                 writer.println(task);
                 writer.close();
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
+        }
+    }
+
+    public void loadFromFile(String filename) {
+        try {
+            FileReader reader = new FileReader(filename, StandardCharsets.UTF_8);
+            StringBuilder stringBuilder = new StringBuilder();
+            while (reader.ready()) {
+                stringBuilder.append((char) reader.read());
+            }
+            reader.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
 }
