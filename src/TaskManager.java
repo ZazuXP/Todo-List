@@ -2,6 +2,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class TaskManager {
     private List<Task> tasks = new ArrayList<>();
@@ -59,10 +60,8 @@ public class TaskManager {
     public void saveToFile(String filename) {
         for (Task elem: tasks) {
             String task = elem.getId() + ";" + elem.getDescription() + ";" + elem.getIsDone();
-            try {
-                PrintWriter writer = new PrintWriter(new FileWriter(filename, true));
+            try (PrintWriter writer = new PrintWriter(new FileWriter(filename, true))) {
                 writer.println(task);
-                writer.close();
             } catch (IOException e) {
                 System.out.println(e.getMessage());
             }
@@ -70,13 +69,16 @@ public class TaskManager {
     }
 
     public void loadFromFile(String filename) {
-        try {
-            FileReader reader = new FileReader(filename, StandardCharsets.UTF_8);
-            StringBuilder stringBuilder = new StringBuilder();
-            while (reader.ready()) {
-                stringBuilder.append((char) reader.read());
+        try (Scanner scanner = new Scanner(new File(filename), StandardCharsets.UTF_8)) {
+            scanner.useDelimiter(";");
+            while (scanner.hasNext()) {
+                for (Task elem: tasks) {
+                    nextId++;
+                    elem.setId(scanner.nextInt());
+                    elem.setDescription(scanner.next());
+                    elem.setIsDone(scanner.nextBoolean());
+                }
             }
-            reader.close();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
