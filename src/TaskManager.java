@@ -8,12 +8,12 @@ public class TaskManager {
     private List<Task> tasks = new ArrayList<>();
     private ArrayList<Task> deletedTasks = new ArrayList<>();
     private ArrayList<Task> doneTasks = new ArrayList<>();
-    public int nextId = 0;
+    public int nextId = 1;
 
     public void adTask(String description) {
-        nextId++;
         Task task = new Task(nextId, description);
         tasks.add(task);
+        nextId++;
     }
 
     public void getAllTask() {
@@ -70,16 +70,34 @@ public class TaskManager {
 
     public void loadFromFile(String filename) {
         try (Scanner scanner = new Scanner(new File(filename), StandardCharsets.UTF_8)) {
-            scanner.useDelimiter(";");
-            while (scanner.hasNext()) {
-                for (Task elem: tasks) {
-                    nextId++;
-                    elem.setId(scanner.nextInt());
-                    elem.setDescription(scanner.next());
-                    elem.setIsDone(scanner.nextBoolean());
+            tasks.clear();
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine().trim();
+                if (line.isEmpty()) continue;
+                String[] parts = line.split(";");
+                if (parts.length == 3) {
+                    int id = Integer.parseInt(parts[0]);
+                    String description = parts[1];
+                    boolean isDone = Boolean.parseBoolean(parts[2]);
+
+                    Task task = new Task(id, description);
+                    task.setIsDone(isDone);
+                    tasks.add(task);
+
+                    if (id >= nextId) {
+                        nextId = id+1;
+                    }
                 }
             }
         } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void clearFile(String filename) {
+        try(PrintWriter writer = new PrintWriter(filename)) {
+            writer.write("");
+        } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
     }

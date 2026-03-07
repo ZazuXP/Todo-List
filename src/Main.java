@@ -1,11 +1,11 @@
-import java.io.InputStream;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         TaskManager taskManager = new TaskManager();
-        taskManager.loadFromFile("C:\\java_repos\\Todo List\\resources");
+        taskManager.loadFromFile("resources/tasks.txt");
+        taskManager.clearFile("resources/tasks.txt");
 
         while (true) {
             System.out.print("Введите команду: ");
@@ -46,7 +46,7 @@ public class Main {
                         System.out.println("Ошибка: введите числовое представление id");
                     }
                 } else if (input.startsWith("/exit")) {
-                    taskManager.saveToFile("C:\\java_repos\\Todo List\\resources");
+                    taskManager.saveToFile("resources/tasks.txt");
                     System.out.println("Вы вышли из программы. Задачи успешно сохранены!");
                     break;
                 } else {
