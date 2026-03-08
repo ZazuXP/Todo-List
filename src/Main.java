@@ -1,11 +1,13 @@
+import java.io.File;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         TaskManager taskManager = new TaskManager();
-        taskManager.loadFromFile("resources/tasks.txt");
-        taskManager.clearFile("resources/tasks.txt");
+        String filename = "resources/tasks.txt";
+        taskManager.loadFromFile(filename);
+        taskManager.clearFile(filename);
 
         while (true) {
             System.out.print("Введите команду: ");
@@ -14,6 +16,7 @@ public class Main {
                 if (input.startsWith("/add")) {
                     taskManager.adTask(input.substring(5));
                     System.out.println("Задача добавлена!");
+                    taskManager.saveToFile(filename);
                 } else if (input.startsWith("/list")) {
                     System.out.println("Список задач:");
                     taskManager.getAllTask();
@@ -27,6 +30,8 @@ public class Main {
                         } else {
                             taskManager.markTaskAsDone(id);
                             System.out.println("Задача помечена как выполненная!");
+                            taskManager.clearFile(filename);
+                            taskManager.saveToFile(filename);
                         }
                     } catch (NumberFormatException e) {
                         System.out.println("Ошибка: введите числовое представление id");
@@ -41,12 +46,15 @@ public class Main {
                         } else {
                             taskManager.deleteTask(id);
                             System.out.println("Задача удалена!");
+                            taskManager.clearFile(filename);
+                            taskManager.saveToFile(filename);
                         }
                     } catch(NumberFormatException e) {
                         System.out.println("Ошибка: введите числовое представление id");
                     }
                 } else if (input.startsWith("/exit")) {
-                    taskManager.saveToFile("resources/tasks.txt");
+                    taskManager.clearFile(filename);
+                    taskManager.saveToFile(filename);
                     System.out.println("Вы вышли из программы. Задачи успешно сохранены!");
                     break;
                 } else {
