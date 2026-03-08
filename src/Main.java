@@ -6,14 +6,23 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         TaskManager taskManager = new TaskManager();
         String filename = "resources/tasks.txt";
+
+        System.out.println("Вас приветсвует менеджер задач!");
+
         taskManager.loadFromFile(filename);
         taskManager.clearFile(filename);
+        taskManager.saveToFile(filename);
+
+        System.out.println("Вы можете посмотреть инструкцию по командам, введя в консоль /printCom");
 
         while (true) {
             System.out.print("Введите команду: ");
             String input = scanner.nextLine();
             try {
-                if (input.startsWith("/add")) {
+                if (input.startsWith("/printCom")) {
+                    taskManager.printAllCommands();
+                }
+                else if (input.startsWith("/add")) {
                     taskManager.adTask(input.substring(5));
                     System.out.println("Задача добавлена!");
                     taskManager.clearFile(filename);

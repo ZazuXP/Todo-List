@@ -10,6 +10,12 @@ public class TaskManager {
     private ArrayList<Task> doneTasks = new ArrayList<>();
     public int nextId = 1;
 
+    public void printAllCommands() {
+        System.out.println("/add \"описание задачи\" - добавить задачу в список \t/list - вывести все задачи на экран");
+        System.out.println("/done \"id задачи\" - отметить задачу выполненной по id \t/delete \"id задачи\" - удалить задачу по id");
+        System.out.println("/removeAll - удалить все задачи из списка \t/exit - выйти из программы и сохранить текущие задачи");
+    }
+
     public void adTask(String description) {
         Task task = new Task(nextId, description);
         tasks.add(task);
