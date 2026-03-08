@@ -58,13 +58,14 @@ public class TaskManager {
     }
 
     public void saveToFile(String filename) {
-        for (Task elem: tasks) {
-            String task = elem.getId() + ";" + elem.getDescription() + ";" + elem.getIsDone();
-            try (PrintWriter writer = new PrintWriter(new FileWriter(filename, true))) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(filename, true))) {
+            for (Task elem: tasks) {
+                String task = elem.getId() + ";" + elem.getDescription() + ";" + elem.getIsDone();
                 writer.println(task);
-            } catch (IOException e) {
-                System.out.println(e.getMessage());
             }
+            System.out.println("Сохранено задач: " + tasks.size());
+        } catch (IOException e) {
+            System.out.println("Ошибка при сохранении: " + e.getMessage());
         }
     }
 
@@ -89,8 +90,11 @@ public class TaskManager {
                     }
                 }
             }
+            System.out.println("Загружено задач: " + tasks.size());
+        } catch (FileNotFoundException e){
+            System.out.println("Ошибка: файл с задачами не найден, будет создан новый при сохранении");
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Ошибка при загрузке: " + e.getMessage());
         }
     }
 
