@@ -20,6 +20,11 @@ public class TaskManager {
         tasks.forEach(System.out::println);
     }
 
+    public void deleteAllTask() {
+        deletedTasks.addAll(tasks);
+        tasks.clear();
+    }
+
     public void markTaskAsDone(int id) {
         for (Task elem: tasks) {
             if (elem.getId() == id) {

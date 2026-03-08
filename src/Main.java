@@ -16,6 +16,7 @@ public class Main {
                 if (input.startsWith("/add")) {
                     taskManager.adTask(input.substring(5));
                     System.out.println("Задача добавлена!");
+                    taskManager.clearFile(filename);
                     taskManager.saveToFile(filename);
                 } else if (input.startsWith("/list")) {
                     System.out.println("Список задач:");
@@ -52,7 +53,12 @@ public class Main {
                     } catch(NumberFormatException e) {
                         System.out.println("Ошибка: введите числовое представление id");
                     }
-                } else if (input.startsWith("/exit")) {
+                } else if (input.startsWith("/removeAll")) {
+                    taskManager.deleteAllTask();
+                    taskManager.clearFile(filename);
+                    System.out.println("Все задачи успешно удалены!");
+                }
+                else if (input.startsWith("/exit")) {
                     taskManager.clearFile(filename);
                     taskManager.saveToFile(filename);
                     System.out.println("Вы вышли из программы. Задачи успешно сохранены!");
