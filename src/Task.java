@@ -1,7 +1,10 @@
+import java.time.LocalDate;
+
 public class Task {
     private int id;
     private String description;
     private boolean isDone = false;
+    private LocalDate deadline;
 
     public Task(int  id, String description){
         this.id = id;
@@ -26,6 +29,10 @@ public class Task {
 
     public void markAsDone(){
         isDone = true;
+    }
+
+    public void setDeadline(LocalDate deadline) {
+        this.deadline = deadline;
     }
 
     public String toString(){

@@ -1,8 +1,10 @@
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.*;
 
 public class TaskManager {
     private List<Task> tasks = new ArrayList<>();
@@ -66,6 +68,21 @@ public class TaskManager {
             }
         }
         return false;
+    }
+
+    public void setDate(String deadline, int id) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            LocalDate date = LocalDate.parse(deadline, formatter);
+            for (Task elem: tasks) {
+                if (elem.getId() == id) {
+                    elem.setDeadline(date);
+                    System.out.println("Крайний срок установлен!");
+                }
+            }
+        } catch (DateTimeParseException e) {
+            System.out.println("Ошибка: невозможно преобразовать введённые данные в дату, введите числовое представление");
+        }
     }
 
     public void saveToFile(String filename) {
