@@ -39,7 +39,7 @@ public class Main {
                 } else if (input.startsWith("/done")) {
                     try {
                         int id = Integer.parseInt(input.substring(6));
-                        if (id > taskManager.nextId) {
+                        if (id >= taskManager.nextId) {
                             System.out.println("Ошибка: введённый id превышает существующие в списке");
                         } else if (taskManager.checkDoneTasks(id)) {
                             System.out.println("Ошибка: эта задача уже помечена как выполненная");
@@ -52,10 +52,27 @@ public class Main {
                     } catch (NumberFormatException e) {
                         System.out.println("Ошибка: введите числовое представление id");
                     }
-                }  else if(input.startsWith("/delete")) {
+                } else if (input.startsWith("/deadline")) {
+                    try {
+                        int id = Integer.parseInt(input.substring(10));
+                        if (id >= taskManager.nextId) {
+                            System.out.println("Ошибка: введённый id превышает существующие в списке");
+                        } else if (taskManager.checkDoneTasks(id)) {
+                            System.out.println("Крайний срок выполнения данной задачи перезаписан!");
+                        } else {
+                            System.out.print("Введите дату(день-месяц-полный год, всё в числовом формате, пример: 14-11-2008): ");
+                            input = scanner.nextLine();
+                            taskManager.setDate(input, id);
+                            taskManager.clearFile(filename);
+                            taskManager.saveToFile(filename);
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Ошибка: введите числовое представление id");
+                    }
+                } else if(input.startsWith("/delete")) {
                     try {
                         int id = Integer.parseInt(input.substring(8));
-                        if (id > taskManager.nextId){
+                        if (id >= taskManager.nextId){
                             System.out.println("Ошибка: введённый id превышает существующие в списке");
                         } else if (taskManager.checkDeletedTasks(id)) {
                             System.out.println("Ошибка: эта задача уже была удалена");

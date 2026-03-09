@@ -14,8 +14,9 @@ public class TaskManager {
 
     public void printAllCommands() {
         System.out.println("/add \"описание задачи\" - добавить задачу в список \t/list - вывести все задачи на экран");
-        System.out.println("/done \"id задачи\" - отметить задачу выполненной по id \t/delete \"id задачи\" - удалить задачу по id");
-        System.out.println("/removeAll - удалить все задачи из списка \t/exit - выйти из программы и сохранить текущие задачи");
+        System.out.println("/done \"id задачи\" - отметить задачу выполненной по id \t/deadline \"id задачи\" - установить крайний срок выполнения задачи по id");
+        System.out.println("/delete \"id задачи\" - удалить задачу по id \t/removeAll - удалить все задачи из списка");
+        System.out.println("/exit - выйти из программы и сохранить текущие задачи");
     }
 
     public void adTask(String description) {
