@@ -35,7 +35,11 @@ public class Task {
         this.deadline = deadline;
     }
 
+    public LocalDate getDeadline() {
+        return deadline;
+    }
+
     public String toString(){
-        return id + ". " + "[" + (isDone ? "X" : " ") + "] " + description;
+        return id + ". " + "[" + (isDone ? "X" : " ") + "] " + description + " " + deadline;
     }
 }

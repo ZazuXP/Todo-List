@@ -90,6 +90,13 @@ public class TaskManager {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filename, true))) {
             for (Task elem: tasks) {
                 String task = elem.getId() + ";" + elem.getDescription() + ";" + elem.getIsDone();
+
+                LocalDate deadline = elem.getDeadline();
+                if (deadline != null) {
+                    task += ";" + deadline;
+                } else {
+                    task += ";null";
+                }
                 writer.println(task);
             }
             System.out.println("Сохранено задач: " + tasks.size());
@@ -105,13 +112,23 @@ public class TaskManager {
                 String line = scanner.nextLine().trim();
                 if (line.isEmpty()) continue;
                 String[] parts = line.split(";");
-                if (parts.length == 3) {
+                if (parts.length >= 3) {
                     int id = Integer.parseInt(parts[0]);
                     String description = parts[1];
                     boolean isDone = Boolean.parseBoolean(parts[2]);
 
                     Task task = new Task(id, description);
                     task.setIsDone(isDone);
+
+                    if (parts.length == 4 && !parts[3].isEmpty() && !parts[3].equals("null")) {
+                        try {
+                            LocalDate deadline = LocalDate.parse(parts[3]);
+                            task.setDeadline(deadline);
+                        } catch (DateTimeException e) {
+                            System.out.println("Ошибка: неверный формат даты для задачи " + id + ": " + parts[3]);
+                        }
+                    }
+
                     tasks.add(task);
 
                     if (id >= nextId) {
