@@ -4,6 +4,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class TaskManager {
@@ -89,13 +90,17 @@ public class TaskManager {
     public void checkDeadline(int id) {
         for (Task elem: tasks) {
             if(elem.getId() == id) {
-                LocalDate deadline = elem.getDeadline();
-                if (deadline.isBefore(LocalDate.now())) {
-                    System.out.println("Задача просрочена!");
-                } else if(deadline.equals(LocalDate.now())) {
-                    System.out.println("Сегодня крайний срок завершения задачи!");
-                } else {
-                    System.out.println("Задача всё ещё активна!");
+                try {
+                    LocalDate deadline = elem.getDeadline();
+                    if (deadline.isBefore(LocalDate.now())) {
+                        System.out.println("Задача просрочена на " + ChronoUnit.DAYS.between(deadline, LocalDate.now()) + " дней");
+                    } else if(deadline.equals(LocalDate.now())) {
+                        System.out.println("Сегодня крайний срок завершения задачи!");
+                    } else {
+                        System.out.println("Задача всё ещё активна! До крайнего срока осталось " + ChronoUnit.DAYS.between(LocalDate.now(), deadline) + " дней");
+                    }
+                } catch (NullPointerException e) {
+                    System.out.println("Ошибка: срок выполнения задачи не найден");
                 }
             }
         }

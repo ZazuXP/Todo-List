@@ -18,7 +18,7 @@ public class Main {
             System.out.print("Введите команду: ");
             String input = scanner.nextLine();
             try {
-                if (input.startsWith("/printCom")) {
+                if (input.startsWith("/printCom") || input.startsWith("/printcom")) {
                     taskManager.printAllCommands();
                 }
                 else if (input.startsWith("/add")) {
@@ -69,7 +69,7 @@ public class Main {
                     } catch (NumberFormatException e) {
                         System.out.println("Ошибка: введите числовое представление id");
                     }
-                } else if(input.startsWith("/checkDL")) {
+                } else if(input.startsWith("/checkDL") || input.startsWith("/checkdl")) {
                     int id = Integer.parseInt(input.substring(9));
                     taskManager.checkDeadline(id);
                 } else if(input.startsWith("/delete")) {
