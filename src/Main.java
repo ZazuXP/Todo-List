@@ -69,6 +69,9 @@ public class Main {
                     } catch (NumberFormatException e) {
                         System.out.println("Ошибка: введите числовое представление id");
                     }
+                } else if(input.startsWith("/checkDL")) {
+                    int id = Integer.parseInt(input.substring(9));
+                    taskManager.checkDeadline(id);
                 } else if(input.startsWith("/delete")) {
                     try {
                         int id = Integer.parseInt(input.substring(8));

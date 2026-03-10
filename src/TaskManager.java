@@ -14,9 +14,9 @@ public class TaskManager {
 
     public void printAllCommands() {
         System.out.println("/add \"описание задачи\" - добавить задачу в список \t/list - вывести все задачи на экран");
-        System.out.println("/done \"id задачи\" - отметить задачу выполненной по id \t/deadline \"id задачи\" - установить крайний срок выполнения задачи по id");
+        System.out.println("/deadline \"id задачи\" - установить крайний срок выполнения задачи по id \t/checkDL \"id задачи\" - проверить активность задачи по id");
         System.out.println("/delete \"id задачи\" - удалить задачу по id \t/removeAll - удалить все задачи из списка");
-        System.out.println("/exit - выйти из программы и сохранить текущие задачи");
+        System.out.println("/done \"id задачи\" - отметить задачу выполненной по id \t/exit - выйти из программы и сохранить текущие задачи");
     }
 
     public void adTask(String description) {
@@ -83,6 +83,21 @@ public class TaskManager {
             }
         } catch (DateTimeParseException e) {
             System.out.println("Ошибка: невозможно преобразовать введённые данные в дату, введите числовое представление");
+        }
+    }
+
+    public void checkDeadline(int id) {
+        for (Task elem: tasks) {
+            if(elem.getId() == id) {
+                LocalDate deadline = elem.getDeadline();
+                if (deadline.isBefore(LocalDate.now())) {
+                    System.out.println("Задача просрочена!");
+                } else if(deadline.equals(LocalDate.now())) {
+                    System.out.println("Сегодня крайний срок завершения задачи!");
+                } else {
+                    System.out.println("Задача всё ещё активна!");
+                }
+            }
         }
     }
 
