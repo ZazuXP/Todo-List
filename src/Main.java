@@ -70,8 +70,16 @@ public class Main {
                         System.out.println("Ошибка: введите числовое представление id");
                     }
                 } else if(input.startsWith("/checkDL") || input.startsWith("/checkdl")) {
-                    int id = Integer.parseInt(input.substring(9));
-                    taskManager.checkDeadline(id);
+                    try {
+                        int id = Integer.parseInt(input.substring(9));
+                        if (id >= taskManager.nextId) {
+                            System.out.println("Ошибка: введённый id превышает существующие в списке");
+                        } else {
+                            taskManager.checkDeadline(id);
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Ошибка: введите числовое представление id");
+                    }
                 } else if(input.startsWith("/delete")) {
                     try {
                         int id = Integer.parseInt(input.substring(8));

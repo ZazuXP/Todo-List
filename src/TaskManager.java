@@ -93,11 +93,11 @@ public class TaskManager {
                 try {
                     LocalDate deadline = elem.getDeadline();
                     if (deadline.isBefore(LocalDate.now())) {
-                        System.out.println("Задача просрочена на " + ChronoUnit.DAYS.between(deadline, LocalDate.now()) + " дней");
+                        System.out.println(ConsoleColors.RED + "Задача просрочена на " + ChronoUnit.DAYS.between(deadline, LocalDate.now()) + " дней" + ConsoleColors.RESET);
                     } else if(deadline.equals(LocalDate.now())) {
-                        System.out.println("Сегодня крайний срок завершения задачи!");
+                        System.out.println(ConsoleColors.YELLOW + "Сегодня крайний срок завершения задачи!" + ConsoleColors.RESET);
                     } else {
-                        System.out.println("Задача всё ещё активна! До крайнего срока осталось " + ChronoUnit.DAYS.between(LocalDate.now(), deadline) + " дней");
+                        System.out.println(ConsoleColors.GREEN + "Задача всё ещё активна! До крайнего срока осталось " + ChronoUnit.DAYS.between(LocalDate.now(), deadline) + " дней" + ConsoleColors.RESET);
                     }
                 } catch (NullPointerException e) {
                     System.out.println("Ошибка: срок выполнения задачи не найден");
