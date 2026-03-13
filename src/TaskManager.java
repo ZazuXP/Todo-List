@@ -13,6 +13,12 @@ public class TaskManager {
     private ArrayList<Task> doneTasks = new ArrayList<>();
     public int nextId = 1;
 
+    public void printHeader(String header) {
+        System.out.println("═══════════════════════════════════");
+        System.out.println("            " + header);
+        System.out.println("═══════════════════════════════════");
+    }
+
     public void printAllCommands() {
         System.out.println("/add \"описание задачи\" - добавить задачу в список \t/list - вывести все задачи на экран");
         System.out.println("/deadline \"id задачи\" - установить крайний срок выполнения задачи по id \t/checkDL \"id задачи\" - проверить активность задачи по id");
@@ -122,7 +128,6 @@ public class TaskManager {
                 }
                 writer.println(task);
             }
-            System.out.println("Сохранено задач: " + tasks.size());
         } catch (IOException e) {
             System.out.println("Ошибка при сохранении: " + e.getMessage());
         }
@@ -159,7 +164,6 @@ public class TaskManager {
                     }
                 }
             }
-            System.out.println("Загружено задач: " + tasks.size());
         } catch (FileNotFoundException e){
             System.out.println("Ошибка: файл с задачами не найден, будет создан новый при сохранении");
         } catch (IOException e) {

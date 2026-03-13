@@ -6,13 +6,18 @@ public class Main {
         TaskManager taskManager = new TaskManager();
         String filename = "resources/tasks.txt";
 
-        System.out.println("Вас приветсвует менеджер задач!");
+        taskManager.printHeader("TODO LIST");
+        System.out.println();
 
         taskManager.loadFromFile(filename);
         taskManager.clearFile(filename);
         taskManager.saveToFile(filename);
 
+        taskManager.getAllTask();
+
+        System.out.println();
         System.out.println("Вы можете посмотреть инструкцию по командам, введя в консоль /printCom");
+        System.out.println();
 
         while (true) {
             System.out.print("Введите команду: ");
