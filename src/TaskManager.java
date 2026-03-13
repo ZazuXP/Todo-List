@@ -92,7 +92,10 @@ public class TaskManager {
             if(elem.getId() == id) {
                 try {
                     LocalDate deadline = elem.getDeadline();
-                    if (deadline.isBefore(LocalDate.now())) {
+                    if(elem.getIsDone()){
+                        System.out.println(ConsoleColors.GREEN + "Задача выполнена!" + ConsoleColors.RESET);
+                    }
+                    else if (deadline.isBefore(LocalDate.now())) {
                         System.out.println(ConsoleColors.RED + "Задача просрочена на " + ChronoUnit.DAYS.between(deadline, LocalDate.now()) + " дней" + ConsoleColors.RESET);
                     } else if(deadline.equals(LocalDate.now())) {
                         System.out.println(ConsoleColors.YELLOW + "Сегодня крайний срок завершения задачи!" + ConsoleColors.RESET);

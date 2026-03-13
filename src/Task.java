@@ -1,4 +1,5 @@
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class Task {
     private int id;
@@ -39,7 +40,35 @@ public class Task {
         return deadline;
     }
 
+    public String getDeadlineStatus() {
+        if (deadline == null) {
+            return "(нет дедлайна)";
+        }
+        if (isDone) {
+            return "(задача выполнена)";
+        }
+
+        LocalDate today = LocalDate.now();
+
+        if (today.isBefore(deadline)) {
+            long daysLeft = ChronoUnit.DAYS.between(today, deadline);
+            return ConsoleColors.GREEN + "(осталось " + daysLeft + " дней)" + ConsoleColors.RESET;
+        } else if(today.isEqual(deadline)) {
+            return ConsoleColors.YELLOW + "(дедлайн сегодня!)" + ConsoleColors.RESET;
+        } else {
+            long daysOverdue = ChronoUnit.DAYS.between(deadline, today);
+            return ConsoleColors.RED + "(просрочена на " + daysOverdue + " дней)" + ConsoleColors.RESET;
+        }
+    }
+
+    @Override
     public String toString(){
-        return id + ". " + "[" + (isDone ? "X" : " ") + "] " + description + " " + deadline;
+        String status;
+        if (isDone) {
+            status = ConsoleColors.GREEN + "[X]" + ConsoleColors.RESET;
+        } else {
+            status = ConsoleColors.YELLOW + "[ ]" + ConsoleColors.RESET;
+        }
+        return id + ". " + status + description + " " + getDeadlineStatus();
     }
 }
