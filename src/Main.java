@@ -28,9 +28,9 @@ public class Main {
                 }
                 else if (input.startsWith("/add")) {
                     taskManager.adTask(input.substring(5));
-                    System.out.print("Хотите установить крайний срок выполнения задачи? (напишите \"да\", если хотите): ");
+                    System.out.print("Хотите установить крайний срок выполнения задачи? (напишите \"y\", если хотите): ");
                     input = scanner.nextLine();
-                    if (input.equalsIgnoreCase("да")) {
+                    if (input.equalsIgnoreCase("y")) {
                         System.out.print("Введите дату(день-месяц-полный год, всё в числовом формате, пример: 14-11-2008): ");
                         input = scanner.nextLine();
                         taskManager.setDate(input, (taskManager.nextId-1));
