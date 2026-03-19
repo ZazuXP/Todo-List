@@ -69,6 +69,6 @@ public class Task {
         } else {
             status = ConsoleColors.YELLOW + "[ ]" + ConsoleColors.RESET;
         }
-        return id + ". " + status + description + " " + getDeadlineStatus();
+        return id + ". " + status + " " + description + " " + getDeadlineStatus();
     }
 }

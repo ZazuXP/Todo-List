@@ -62,8 +62,6 @@ public class Main {
                         int id = Integer.parseInt(input.substring(10));
                         if (id >= taskManager.nextId) {
                             System.out.println("Ошибка: введённый id превышает существующие в списке");
-                        } else if (taskManager.checkDoneTasks(id)) {
-                            System.out.println("Крайний срок выполнения данной задачи перезаписан!");
                         } else {
                             System.out.print("Введите дату(день-месяц-полный год, всё в числовом формате, пример: 14-11-2008): ");
                             input = scanner.nextLine();
